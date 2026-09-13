@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#### Adding data folder to ignore the db file ####
+data/
