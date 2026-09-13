@@ -2,8 +2,10 @@ package com.project.tasktracker.repository;
 
 import com.project.tasktracker.dto.TaskSummary;
 import com.project.tasktracker.entity.Task;
+import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,4 +24,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query("SELECT new com.project.tasktracker.dto.TaskSummary(t.id, t.title, t.status) FROM Task t")
     Page<TaskSummary> findAllSummaries(Pageable pageable);
+
+    @EntityGraph(attributePaths = {"project"})
+    Page<Task> findAll(@NonNull Pageable pageable);
 }
