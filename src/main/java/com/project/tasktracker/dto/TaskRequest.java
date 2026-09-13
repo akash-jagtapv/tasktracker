@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class TaskRequest {
-    private Long id;
 
     @NotBlank(message = "Task title cannot be blank")
     private String title;
@@ -20,5 +19,5 @@ public class TaskRequest {
 
     private String status;
 
-    private Project project;
+    private Long projectId;
 }

@@ -10,7 +10,7 @@ public class Mapper {
         task.setTitle(taskRequest.getTitle());
         task.setDescription(taskRequest.getDescription());
         task.setStatus(taskRequest.getStatus());
-        task.setProject(taskRequest.getProject());
+        task.getProject().setId(taskRequest.getProjectId());
 
         return task;
     }
@@ -18,10 +18,12 @@ public class Mapper {
     public static TaskResponse entityToResponse(Task task) {
         TaskResponse taskResponse = new TaskResponse();
 
+        taskResponse.setId(task.getId());
         taskResponse.setTitle(task.getTitle());
         taskResponse.setDescription(task.getDescription());
         taskResponse.setStatus(task.getStatus());
-        taskResponse.setProject(task.getProject());
+        taskResponse.setProjectId(task.getProject().getId());
+        taskResponse.setProjectName(task.getProject().getName());
         taskResponse.setCreatedAt(task.getCreatedAt());
         taskResponse.setUpdatedAt(task.getUpdatedAt());
 

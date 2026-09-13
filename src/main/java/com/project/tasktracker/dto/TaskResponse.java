@@ -18,7 +18,9 @@ public class TaskResponse {
 
     private String status;
 
-    private Project project;
+    private Long projectId;
+
+    private String projectName;
 
     private LocalDateTime createdAt;
 
