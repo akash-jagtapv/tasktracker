@@ -1,8 +1,10 @@
-package com.project.tasktracker.dto;
+package com.project.tasktracker.mappers;
 
+import com.project.tasktracker.dto.TaskRequest;
+import com.project.tasktracker.dto.TaskResponse;
 import com.project.tasktracker.entity.Task;
 
-public class Mapper {
+public class TaskMapper {
 
     public static Task requestToEntity(TaskRequest taskRequest) {
         Task task = new Task();
@@ -10,7 +12,7 @@ public class Mapper {
         task.setTitle(taskRequest.getTitle());
         task.setDescription(taskRequest.getDescription());
         task.setStatus(taskRequest.getStatus());
-        task.getProject().setId(taskRequest.getProjectId());
+        //task.getProject().setId(taskRequest.getProjectId());
 
         return task;
     }
