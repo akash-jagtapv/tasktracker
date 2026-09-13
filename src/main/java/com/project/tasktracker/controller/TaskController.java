@@ -1,8 +1,7 @@
 package com.project.tasktracker.controller;
 
-import com.project.tasktracker.dto.TaskRequest;
 import com.project.tasktracker.mappers.TaskMapper;
-import com.project.tasktracker.dto.TaskResponse;
+import com.project.tasktracker.dto.*;
 import com.project.tasktracker.entity.Task;
 import com.project.tasktracker.service.TaskService;
 import jakarta.validation.Valid;
@@ -45,6 +44,16 @@ public class TaskController {
 
         return ResponseEntity.ok(tasks.map(TaskMapper::entityToResponse));
 
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<Page<TaskSummary>> findAllSummaries(
+            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC)
+            Pageable pageable
+    ) {
+        Page<TaskSummary> taskSummary = taskService.getAllSummaries(pageable);
+
+        return ResponseEntity.ok(taskSummary);
     }
 
     @PostMapping

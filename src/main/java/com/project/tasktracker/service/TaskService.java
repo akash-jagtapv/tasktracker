@@ -1,6 +1,6 @@
 package com.project.tasktracker.service;
 
-import com.project.tasktracker.dto.TaskResponse;
+import com.project.tasktracker.dto.TaskSummary;
 import com.project.tasktracker.entity.Project;
 import com.project.tasktracker.entity.Task;
 import com.project.tasktracker.exception.ProjectNotFoundException;
@@ -41,5 +41,9 @@ public class TaskService {
 
     public Page<Task> searchTasks(String status, Long projectId, Pageable pageable) {
         return taskRepository.searchTasks(status, projectId, pageable);
+    }
+
+    public Page<TaskSummary> getAllSummaries(Pageable pageable) {
+        return taskRepository.findAllSummaries(pageable);
     }
 }

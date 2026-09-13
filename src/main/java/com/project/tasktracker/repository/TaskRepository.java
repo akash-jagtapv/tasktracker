@@ -1,5 +1,6 @@
 package com.project.tasktracker.repository;
 
+import com.project.tasktracker.dto.TaskSummary;
 import com.project.tasktracker.entity.Task;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,4 +19,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             @Param("projectId") Long projectId,
             Pageable pageable
     );
+
+    @Query("SELECT new com.project.tasktracker.dto.TaskSummary(t.id, t.title, t.status) FROM Task t")
+    Page<TaskSummary> findAllSummaries(Pageable pageable);
 }
