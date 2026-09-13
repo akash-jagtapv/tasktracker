@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,36 +25,36 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<TaskResponse>> getAllTasks(
+    public ResponseEntity<PagedModel<TaskResponse>> getAllTasks(
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
             Pageable pageable
             ) {
 
         Page<Task> tasks = taskService.getAllTasks(pageable);
 
-        return ResponseEntity.ok(tasks.map(TaskMapper::entityToResponse));
+        return ResponseEntity.ok(new PagedModel<>(tasks.map(TaskMapper::entityToResponse)));
 
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<TaskResponse>> getTasksBySearch(
+    public ResponseEntity<PagedModel<TaskResponse>> getTasksBySearch(
         @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
         Pageable pageable, @RequestParam(required = false) String status, @RequestParam(required = false) Long projectId
     ) {
         Page<Task> tasks = taskService.searchTasks(status, projectId, pageable);
 
-        return ResponseEntity.ok(tasks.map(TaskMapper::entityToResponse));
+        return ResponseEntity.ok(new PagedModel<>(tasks.map(TaskMapper::entityToResponse)));
 
     }
 
     @GetMapping("/summary")
-    public ResponseEntity<Page<TaskSummary>> findAllSummaries(
+    public ResponseEntity<PagedModel<TaskSummary>> findAllSummaries(
             @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC)
             Pageable pageable
     ) {
         Page<TaskSummary> taskSummary = taskService.getAllSummaries(pageable);
 
-        return ResponseEntity.ok(taskSummary);
+        return ResponseEntity.ok(new PagedModel<>(taskSummary));
     }
 
     @PostMapping
