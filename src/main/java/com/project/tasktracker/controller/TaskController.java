@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +38,8 @@ public class TaskController {
 
     @GetMapping("/search")
     public ResponseEntity<Page<TaskResponse>> getTasksBySearch(
-        @PageableDefault()
-        Pageable pageable, @Param("status") String status, @Param("projectId") Long projectId
+        @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
+        Pageable pageable, @RequestParam(required = false) String status, @RequestParam(required = false) Long projectId
     ) {
         Page<Task> tasks = taskService.searchTasks(status, projectId, pageable);
 
@@ -54,6 +53,5 @@ public class TaskController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(TaskMapper.entityToResponse(task));
     }
-
 
 }

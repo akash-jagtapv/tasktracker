@@ -12,7 +12,6 @@ public class TaskMapper {
         task.setTitle(taskRequest.getTitle());
         task.setDescription(taskRequest.getDescription());
         task.setStatus(taskRequest.getStatus());
-        //task.getProject().setId(taskRequest.getProjectId());
 
         return task;
     }
