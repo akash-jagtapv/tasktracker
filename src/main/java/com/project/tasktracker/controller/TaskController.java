@@ -68,7 +68,7 @@ public class TaskController {
     public ResponseEntity<TaskResponse> updateTask(@Valid @RequestBody TaskRequest taskRequest, @PathVariable("id") Long id) {
         Task updatedTask = taskService.updateTask(TaskMapper.requestToEntity(taskRequest), id);
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(TaskMapper.entityToResponse(updatedTask));
+        return ResponseEntity.status(HttpStatus.OK).body(TaskMapper.entityToResponse(updatedTask));
     }
 
 }

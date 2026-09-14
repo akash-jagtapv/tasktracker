@@ -59,7 +59,7 @@ public class TaskService {
         }
 
         if(updatedTask.getStatus() != null) {
-            existingTask.setDescription(updatedTask.getStatus());
+            existingTask.setStatus(updatedTask.getStatus());
         }
 
         return taskRepository.save(existingTask);
