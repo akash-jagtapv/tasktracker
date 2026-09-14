@@ -1,5 +1,6 @@
 package com.project.tasktracker.entity;
 
+import com.project.tasktracker.Auditable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "tasks")
 @Getter
 @Setter
-public class Task {
+public class Task extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +27,4 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
 }
