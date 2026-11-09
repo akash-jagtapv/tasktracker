@@ -39,9 +39,9 @@ public class TaskController {
     @GetMapping("/search")
     public ResponseEntity<PagedModel<TaskResponse>> getTasksBySearch(
         @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
-        Pageable pageable, @RequestParam(required = false) String status, @RequestParam(required = false) Long projectId
+        Pageable pageable, @RequestParam(required = false) String status, @RequestParam(required = false) Long projectId, String titleKeyword
     ) {
-        Page<Task> tasks = taskService.searchTasks(status, projectId, pageable);
+        Page<Task> tasks = taskService.searchTasks(status, projectId, titleKeyword, pageable);
 
         return ResponseEntity.ok(new PagedModel<>(tasks.map(TaskMapper::entityToResponse)));
 

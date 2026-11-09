@@ -5,12 +5,14 @@ import com.project.tasktracker.entity.Task;
 import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface TaskRepository extends JpaRepository<Task, Long> {
+public interface TaskRepository extends JpaRepository<Task, Long>, JpaSpecificationExecutor<Task> {
 
     @Query("SELECT t FROM Task t WHERE " +
                     "(:status IS NULL OR t.status = :status) AND " +
@@ -26,5 +28,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     Page<TaskSummary> findAllSummaries(Pageable pageable);
 
     @EntityGraph(attributePaths = {"project"})
-    Page<Task> findAll(@NonNull Pageable pageable);
+    Page<Task> findAll(@NonNull Specification spec, @NonNull Pageable pageable);
 }

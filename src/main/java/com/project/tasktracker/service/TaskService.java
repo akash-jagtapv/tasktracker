@@ -7,8 +7,10 @@ import com.project.tasktracker.exception.ProjectNotFoundException;
 import com.project.tasktracker.exception.TaskNotFoundException;
 import com.project.tasktracker.repository.ProjectRepository;
 import com.project.tasktracker.repository.TaskRepository;
+import com.project.tasktracker.specification.TaskSpecifications;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -38,8 +40,15 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public Page<Task> searchTasks(String status, Long projectId, Pageable pageable) {
-        return taskRepository.searchTasks(status, projectId, pageable);
+    public Page<Task> searchTasks(String status, Long projectId, String titleKeyword, Pageable pageable) {
+//        return taskRepository.searchTasks(status, projectId, pageable);
+
+        Specification<Task> spec = Specification
+                .where(TaskSpecifications.hasStatus(status))
+                .and(TaskSpecifications.hasProjectId(projectId))
+                .and(TaskSpecifications.titleContains(titleKeyword));
+
+        return taskRepository.findAll(spec, pageable);
     }
 
     public Page<TaskSummary> getAllSummaries(Pageable pageable) {
