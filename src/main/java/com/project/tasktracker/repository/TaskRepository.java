@@ -28,5 +28,5 @@ public interface TaskRepository extends JpaRepository<Task, Long>, JpaSpecificat
     Page<TaskSummary> findAllSummaries(Pageable pageable);
 
     @EntityGraph(attributePaths = {"project"})
-    Page<Task> findAll(@NonNull Specification spec, @NonNull Pageable pageable);
+    Page<Task> findAll(@NonNull Specification<Task> spec, @NonNull Pageable pageable);
 }

@@ -17,8 +17,8 @@ public class TaskSpecifications {
 
     public static Specification<Task> titleContains (String keyword) {
         return (root, query, cb) ->
-                keyword == null ? null : cb.like(
-                        cb.lower(root.get("name")), "%" + keyword.toLowerCase() + "%"
+                keyword == null || keyword.isBlank() ? null : cb.like(
+                        cb.lower(root.get("title")), "%" + keyword.toLowerCase() + "%"
                 );
     }
 }

@@ -41,8 +41,6 @@ public class TaskService {
     }
 
     public Page<Task> searchTasks(String status, Long projectId, String titleKeyword, Pageable pageable) {
-//        return taskRepository.searchTasks(status, projectId, pageable);
-
         Specification<Task> spec = Specification
                 .where(TaskSpecifications.hasStatus(status))
                 .and(TaskSpecifications.hasProjectId(projectId))
